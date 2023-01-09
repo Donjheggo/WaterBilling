@@ -1,0 +1,42 @@
+{% extends 'main/layout.html' %}
+
+{% load static %}
+
+
+{% block body %}
+<div class="container-fluid">
+    <div class="text-center"> 
+        <h1 class="h3 mb-2 text-primary font-weight-bolder">Metrics Cost</h1><br>
+    </div>
+
+
+    <div class="card shadow mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Metrics Table</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered tally-table" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Consumption/Meter Cost</th>
+                            <th>Penalty Cost </th>
+                            <th>Edit</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> ₱{{amount.consump_amount}} </td>
+                            <td> ₱{{amount.penalty_amount}} </td> 
+                            <td class="text-center">  
+                                <a href="{% url 'metricsupdate' amount.id %}" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i></a>
+                            </td>
+                        </tr>   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

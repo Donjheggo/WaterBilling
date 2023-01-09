@@ -1,0 +1,150 @@
+{% extends 'main/layout.html' %}
+
+
+{% block body %}
+            <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+            <h1 class="h3 mb-2 text-primary font-weight-bolder text-center">Dashboard</h1><br>
+
+
+        <!--ROW-->
+
+        <div class="row" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+
+            <div class="col-xl-3 col-md-6 mb-6 mb-2" >
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                
+                                <a href="{% url 'clients' %}">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Clients
+                                </div>
+                                </a>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ clients }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-people-group fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-6 mb-2" >
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                
+                                <a href="{% url 'ongoingbills' %}">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Ongoing Bills
+                                </div>
+                                </a>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ bills }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-people-group fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-3 col-md-6 mb-6 mb-2" >
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                
+                                <a href="{% url 'clients' %}">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Connected
+                                </div>
+                                </a>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ connecteds }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-people-group fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-6 mb-2" >
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                
+                                <a href="{% url 'clients' %}">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Disconnected
+                                </div>
+                                </a>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{ disconnecteds }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fa-solid fa-people-group fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- END ROW-->
+
+
+        <div class="col-sm-12 card shadow mt-5" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary text-center">Ongoing Bills</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered tally-table" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Bill</th>
+                                <th>Meter Consumption</th>
+                                <th>Due date</th>
+                                <th>Penalty date</th>
+                                <th>Penalty</th>
+                                <th>Payable Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           {% for bill in ongoingbills %}
+                            <tr>
+                                <td> {{bill.name}} </td>
+                                <td> {{bill.meter_consumption}} cu.m</td> 
+                                <td> ₱{{bill.compute_bill}}</td> 
+                                <td> {{bill.duedate}} </td> 
+                                <td> {{bill.penaltydate}} </td> 
+                                <td> {% if bill.penalty %} ₱{{bill.penalty}} {% else %} No Penalty {% endif %}</td> 
+                                <td> ₱{{bill.payable}} </td> 
+                                <td> {{bill.status}} </td>
+                            </tr>   
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+    
+
+    </div>
+
+{% endblock %}

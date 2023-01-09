@@ -1,0 +1,26 @@
+{% extends 'main/layout.html' %}
+
+
+{% block body %}
+
+<div class="container"> 
+    <h1 class="h3 mb-2 text-primary text-center font-weight-bolder">Update {{ bill }}</h1><br>
+<form action="" method="POST" class="user" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group mt-3">
+        <label>Per Meter Cost: </label> <br>
+        {{ form.consump_amount }}
+    </div>
+    <div class="form-group mt-3">
+        <label>Penalty Cost: </label> <br>
+        {{ form.penalty_amount }}
+    </div>
+
+   <div class="d-flex justify-content-center">
+   <input type="submit" value="Save" class="btn btn-primary btn-user  w-25">
+   <a href="{{request.META.HTTP_REFERER}}" class="ml-3 btn btn-secondary btn-user  w-25">Cancel</a>
+   </div>
+</form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'main/layout.html' %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="text-center"> 
+        <h1 class="h3 mb-2 text-primary font-weight-bolder">Users</h1><br>
+    </div>
+
+
+    <div class="card shadow mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Users Information</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered tally-table" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Full Name</th>
+                            <!-- <th>Verification Status</th> -->
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for user in users %}
+                        <tr>
+                            <td> {{ user.email }} </td>
+                            <td> {{ user.last_name }}, {{user.first_name}} {% if user.middle_name %} {{user.middle_name}} {% endif %}</td>
+                            <!-- <td> {% if user.verified %} Verified {% else %} Not Verified {% endif %}</td> -->
+                            <td class="text-center">  
+                                <a href="{% url 'updateuser' user.id %}" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="{% url 'deleteuser' user.id %}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                            </td>
+                        </tr>   
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<div class="modal fade" id="Addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Event</b></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label>Event Date:</label>
+                        {{ form.date }}
+                        
+                    </div>
+                    <div class="form-group">
+                        <label>Event Name:</label>
+                        {{ form.name }}
+                        
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Confirm</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+{% endblock %}

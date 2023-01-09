@@ -1,0 +1,59 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block body %}
+<div class="container-fluid">
+    <div class="text-center"> 
+        <h1 class="h3 mb-2 text-primary font-weight-bolder">Bills History</h1><br>
+    </div>
+
+
+    <div class="card shadow mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Bills History Data Table</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered tally-table" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Cubic Meter Consumption</th>
+                            <th>Consumption Cost</th>
+                            <th>Due Date</th>
+                            <th>Penalty Date</th>
+                            <th>Penalty</th>
+                            <th>Payable Amount</th>
+                            <th>Pay Status</th>
+                            {% if request.user.is_superuser %}
+                            <th>Action</th> 
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {% for bill in billshistory %}
+                        <tr>
+                            <td> {{bill.name}} </td>
+                            <td> {{bill.meter_consumption}} cu.m</td> 
+                            <td> ₱{{bill.compute_bill}}</td> 
+                            <td> {{bill.duedate}} </td> 
+                            <td> {{bill.penaltydate}} </td> 
+                            <td> {{bill.penalty}}</td> 
+                            <td class="font-weight-bolder text-primary"> ₱{{bill.payable}} </td> 
+                            <td> {{bill.status}}</td>
+                            {% if request.user.is_superuser %}
+                            <td class="text-center">  
+                                <a href="{% url 'billupdate' bill.id %}" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                            </td>
+                            {% endif %}
+                        </tr>   
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'main/layout.html' %}
+
+
+{% block body %}
+
+<div class="container"> 
+    <h1 class="h3 mb-2 text-primary text-center font-weight-bolder">Update {{ event }}</h1><br>
+<form action="" method="POST" class="user" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-group">
+        <label> <b> Email: </b> </label>
+        {{ form.email }}
+    </div>
+    <div class="form-group">
+        <label> <b> Last Name: </b> </label>
+        {{ form.last_name }}
+    </div>
+    <div class="form-group">
+        <label> <b> First Name: </b> </label>
+        {{ form.first_name }}
+    </div>
+    <div class="form-group">
+        <label> <b> Password: </b> </label>
+        {{ form.password }}
+    </div>
+
+   <div class="d-flex justify-content-center">
+   <input type="submit" value="Save" class="btn btn-primary btn-user  w-25">
+   <a href="{{request.META.HTTP_REFERER}}" class="ml-3 btn btn-secondary btn-user  w-25">Cancel</a>
+   </div>
+</form>
+</div>
+
+{% endblock %}

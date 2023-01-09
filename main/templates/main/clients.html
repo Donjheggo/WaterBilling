@@ -1,0 +1,124 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% block body %}
+<div class="container-fluid">
+    {% if request.user.is_superuser %}
+    <div class="d-flex"> 
+        <h1 class="h3 mb-2 text-primary font-weight-bolder">Clients</h1><br>
+        <a class="ml-auto btn btn-primary mb-3" data-toggle="modal" data-target="#Addmodal">Add Client</a> 
+    </div>
+    {% else %}
+    <div class="text-center"> 
+        <h1 class="h3 mb-2 text-primary font-weight-bolder">Clients Information</h1><br>
+    </div>
+    {% endif %}
+
+
+    <div class="card shadow mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Clients Information</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered tally-table" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Meter Number</th>
+                            <th>Full Name</th>
+                            <th>Contact Number</th>
+                            <th>Address</th>
+                            <th>Connection Status</th>
+
+                            {% if request.user.is_superuser %}
+                            <th>Action</th> 
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {% for client in clients %}
+                        <tr>
+                            <th> {{ client.meter_number }} </th>
+                            <th> {{client.last_name}}, {{client.first_name}} {% if client.middle_name %} {{ client.middlename }} {% endif %}</th>
+                            <th> {{ client.contact_number}} </th>
+                            <th> {{ client.address }} </th>
+                            <th> {{client.status}} </th>
+                            {% if request.user.is_superuser %}
+                            <td class="text-center">  
+                                <a href="{% url 'clientupdate' client.id %}" class="btn btn-primary"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="{% url 'clientdelete' client.id %}" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></a>
+                            </td>
+                            {% endif %}
+                        </tr>   
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% if request.user.is_superuser %}
+
+<div class="modal fade" id="Addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Client</b></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="reader"> </div>
+                <form action="" method="POST" class="user" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group mt-3">
+                        <label>Meter Number: </label> <br>
+                        {{ form.meter_number }}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>First Name: </label> <br>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Middle Name: </label> <br>
+                        {{ form.middle_name }}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Last Name: </label> <br>
+                        {{ form.last_name }}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Contact Number: </label> <br>
+                        {{ form.contact_number }}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Address: </label> <br>
+                        {{ form.address }}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label>Connection Status: </label> <br>
+                        {{ form.status }}
+                    </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Confirm</button>
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+
+</div>
+{% endblock %}
+
+
+
+                    <!-- <div class="help">
+                        <p class="text-primary" style="font-size: 13px;">
+                            Contact number must start with +639
+                        </p>
+                    </div> -->

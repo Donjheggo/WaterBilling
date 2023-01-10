@@ -113,24 +113,7 @@ Command for Linux:
 $  python3 manage.py createsuperuser
 ```
 
-
-
 Then Add Email and Password
-
-**or Use Default Credentials**
-
-*For HOD /SuperAdmin*
-Email: admin@admin.com
-Password: admin
-
-*For Staff*
-Email: staff@staff.com
-Password: staff
-
-*For Student*
-Email: student@student.com
-Password: student
-
 
 
 ## For Sponsor or Projects Enquiry
@@ -139,14 +122,9 @@ Password: student
 2. Facebook - [donjheggo](https://www.facebook.com/Donjheggo)
 
 
-
 ## How the system works
-Administrator is required to create candidates and set schedule. 
-After doing this, the voters can vote based on his/her department
+Administrator is required to add clients and set metrics for billing.
 
-## How do voters get verified ?
-OTP is sent to voter's email.
-The OTP is sent via an python SMTP gateway. 
 
 ## Can OTP verification be bypassed ?
 Yeah, sure.

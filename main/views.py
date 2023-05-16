@@ -228,6 +228,8 @@ def client_delete(request,pk):
 
 
 def metrics(request):
+    if not Metric.objects.all():
+        Metric.objects.create()
     context = {
         'title': 'Metrics',
         'amount': Metric.objects.get(id=1)
